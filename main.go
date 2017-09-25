@@ -8,7 +8,10 @@ import (
 	"os"
 )
 
-const port = 80
+const (
+	PORT    = 80
+	VERSION = "v0.1.0"
+)
 
 var (
 	index    string
@@ -17,6 +20,7 @@ var (
 
 type indexData struct {
 	Hostname string
+	Version  string
 }
 
 func init() {
@@ -29,6 +33,18 @@ func init() {
         text-align: center;
         font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
       }
+
+      div.footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        overflow: hidden;
+        color: #666;
+        font-style: italic;
+        font-size: 0.8em;
+      }
     </style>
   </head>
   <body>
@@ -37,17 +53,20 @@ func init() {
       <h1>Hello, container world!</h1>
       <p>My hostname is <b>{{ .Hostname }}</b></p>
     </div>
+    <div class="footer">
+      <p>hello world - {{ .Version }}</p>
+    </div>
   </body>
 </html>
 `
 }
 
 func main() {
-	listen := fmt.Sprintf(":%d", port)
+	listen := fmt.Sprintf(":%d", PORT)
 
 	http.HandleFunc("/", indexHandler)
 
-	log.Printf("starting server on port %d", port)
+	log.Printf("starting server on port %d", PORT)
 	log.Fatal(http.ListenAndServe(listen, nil))
 }
 
@@ -57,7 +76,10 @@ func indexHandler(res http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(res, err.Error())
 	}
 
-	data := indexData{Hostname: hostname}
+	data := indexData{
+		Hostname: hostname,
+		Version:  VERSION,
+	}
 
 	tpl, err := template.New("index").Parse(tplIndex)
 	if err != nil {
