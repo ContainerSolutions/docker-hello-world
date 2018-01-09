@@ -1,5 +1,7 @@
 # docker-hello-world
 
+[![Build Status](https://travis-ci.org/ContainerSolutions/docker-hello-world.svg?branch=master)](https://travis-ci.org/ContainerSolutions/docker-hello-world)
+
 > Simple web application that renders the hostname of the container where it's being run
 
 # Quickstart
