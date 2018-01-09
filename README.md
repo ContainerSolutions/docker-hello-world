@@ -21,3 +21,18 @@ Then you can access the application on [http://localhost:8080]()
 ```
 $ make build
 ```
+
+## Pushing the image to DockerHub
+1. Make sure that you have the following env variables set before running these steps:
+   - `DOCKER_USER`
+   - `DOCKER_PASS`
+
+2. Authenticate with DockerHub:
+   ```
+   $ make login
+   ```
+
+3. Push the image and tags:
+   ```
+   $ make push
+   ```
