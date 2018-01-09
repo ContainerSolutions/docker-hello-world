@@ -1,0 +1,15 @@
+sudo: required
+
+language: bash
+
+git:
+  depth: 1
+
+services:
+  - docker
+
+script:
+  - make login
+  - make build
+  - make push
+  - make logout
